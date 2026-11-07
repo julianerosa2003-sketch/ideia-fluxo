@@ -1,0 +1,16 @@
+{
+  "name": "Ideia Fluxo",
+  "short_name": "Ideia Fluxo",
+  "description": "Organize ideias de projetos e gere prompts prontos",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#e5f5f8",
+  "theme_color": "#1d6584",
+  "lang": "pt-BR",
+  "icons": [
+    { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png" },
+    { "src": "icons/icon-512-maskable.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}

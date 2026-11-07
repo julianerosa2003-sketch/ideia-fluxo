@@ -1,0 +1,32 @@
+rules_version = '2';
+
+// Cole este conteúdo em: Firebase Console → Firestore Database → aba "Regras" → Publicar.
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function isOwner(uid) {
+      return request.auth != null && request.auth.uid == uid;
+    }
+
+    function validIdea(ideaId) {
+      let d = request.resource.data;
+      return d.id == ideaId
+        && d.keys().hasOnly(['id', 'nome', 'objetivo', 'composicao', 'tipo', 'linguagem',
+                             'categoria', 'status', 'createdAt', 'updatedAt'])
+        && d.nome is string && d.nome.size() > 0 && d.nome.size() <= 120
+        && d.objetivo is string && d.objetivo.size() <= 5000
+        && d.composicao is string && d.composicao.size() <= 5000
+        && d.tipo is string && d.tipo.size() <= 40
+        && d.linguagem is string && d.linguagem.size() <= 40
+        && d.categoria is string && d.categoria.size() <= 40
+        && d.status is string && d.status.size() <= 40
+        && d.createdAt is int && d.updatedAt is int;
+    }
+
+    // Cada usuário só lê/escreve as próprias ideias. Todo o resto é negado.
+    match /users/{uid}/ideas/{ideaId} {
+      allow read, delete: if isOwner(uid);
+      allow create, update: if isOwner(uid) && validIdea(ideaId);
+    }
+  }
+}
