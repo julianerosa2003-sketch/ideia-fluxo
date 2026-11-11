@@ -16,7 +16,19 @@ docker build -t ideias-pwa . && docker run -p 3000:3000 ideias-pwa
 
 > O service worker (instalação/offline) só funciona em `localhost` ou HTTPS.
 
-## Publicar no GitHub Pages
+## Publicar no Firebase Hosting (recomendado)
+
+Endereço: **https://ideia-fluxo.firebaseapp.com** (mesmo domínio do login → funciona em qualquer celular).
+
+```bash
+npm install -g firebase-tools   # uma vez
+firebase login                  # uma vez
+firebase deploy --only hosting  # a cada atualização
+```
+
+`firebase.json` publica a pasta `docs`. Ao alterar arquivos, suba `CACHE` em `docs/sw.js`.
+
+## Publicar no GitHub Pages (alternativa)
 
 Settings → Pages → Source: *Deploy from a branch* → Branch `main`, pasta `/docs`.
 Depois adicione `SEU-USUARIO.github.io` em Firebase → Authentication → Configurações → Domínios autorizados.

@@ -6,6 +6,13 @@
   <meta name="theme-color" content="#1d6584" />
   <meta name="description" content="Organize ideias de projetos e gere prompts prontos" />
   <title>Ideia Fluxo</title>
+  <script>
+    // O login usa ideia-fluxo.firebaseapp.com; manter o app no mesmo domínio evita
+    // falhas de login em celulares (bloqueio de armazenamento entre domínios).
+    if (location.hostname === 'ideia-fluxo.web.app') {
+      location.replace('https://ideia-fluxo.firebaseapp.com' + location.pathname + location.search + location.hash);
+    }
+  </script>
   <link rel="manifest" href="manifest.webmanifest" />
   <link rel="icon" href="icons/icon-192.png" />
   <link rel="apple-touch-icon" href="icons/icon-192.png" />

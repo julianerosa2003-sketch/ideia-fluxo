@@ -1,6 +1,6 @@
 // Cache-first para o app shell → abre 100% offline.
 // Ao alterar arquivos, suba a versão para forçar atualização.
-const CACHE = 'ideias-v5';
+const CACHE = 'ideias-v6';
 const ASSETS = [
   './',
   './index.html',
@@ -32,8 +32,10 @@ self.addEventListener('activate', (e) => {
 
 self.addEventListener('fetch', (e) => {
   const url = new URL(e.request.url);
-  // Só intercepta GET do próprio site. Login Google e Firestore passam direto.
+  // Só intercepta GET do próprio site. Login Google, Firestore e as páginas
+  // internas de login do Firebase Hosting (/__/) passam direto.
   if (e.request.method !== 'GET' || url.origin !== self.location.origin) return;
+  if (url.pathname.startsWith('/__/')) return;
   e.respondWith(
     caches.match(e.request, { ignoreSearch: true }).then(
       (hit) => hit || fetch(e.request).catch(() => caches.match('./index.html'))
