@@ -1,6 +1,6 @@
 // Cache-first para o app shell → abre 100% offline.
 // Ao alterar arquivos, suba a versão para forçar atualização.
-const CACHE = 'ideias-v6';
+const CACHE = 'ideias-v8';
 const ASSETS = [
   './',
   './index.html',

@@ -33,6 +33,10 @@
     <symbol id="i-spark" viewBox="0 0 24 24"><path d="m19 9 1.25-2.75L23 5l-2.75-1.25L19 1l-1.25 2.75L15 5l2.75 1.25zm-7.5.5L9 4 6.5 9.5 1 12l5.5 2.5L9 20l2.5-5.5L17 12zM19 15l-1.25 2.75L15 19l2.75 1.25L19 23l1.25-2.75L23 19l-2.75-1.25z"/></symbol>
     <symbol id="i-copy" viewBox="0 0 24 24"><path d="M16 1H4a2 2 0 0 0-2 2v14h2V3h12zm3 4H8a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h11a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2m0 16H8V7h11z"/></symbol>
     <symbol id="i-download" viewBox="0 0 24 24"><path d="M19 9h-4V3H9v6H5l7 7zM5 18v2h14v-2z"/></symbol>
+    <symbol id="i-code" viewBox="0 0 24 24"><path d="M9.4 16.6 4.8 12l4.6-4.6L8 6l-6 6 6 6zm5.2 0 4.6-4.6-4.6-4.6L16 6l6 6-6 6z"/></symbol>
+    <symbol id="i-book" viewBox="0 0 24 24"><path d="M21 5c-1.11-.35-2.33-.5-3.5-.5-1.95 0-4.05.4-5.5 1.5-1.45-1.1-3.55-1.5-5.5-1.5S2.45 4.9 1 6v14.65c0 .25.25.5.5.5.1 0 .15-.05.25-.05C3.1 20.45 5.05 20 6.5 20c1.95 0 4.05.4 5.5 1.5 1.35-.85 3.8-1.5 5.5-1.5 1.65 0 3.35.3 4.75 1.05.1.05.15.05.25.05.25 0 .5-.25.5-.5V6c-.6-.45-1.25-.75-2-1m0 13.5c-1.1-.35-2.3-.5-3.5-.5-1.7 0-4.15.65-5.5 1.5V8c1.35-.85 3.8-1.5 5.5-1.5 1.2 0 2.4.15 3.5.5z"/></symbol>
+    <symbol id="i-palette" viewBox="0 0 24 24"><path d="M12 3a9 9 0 0 0 0 18c.83 0 1.5-.67 1.5-1.5 0-.39-.15-.74-.39-1.01-.23-.26-.38-.61-.38-.99 0-.83.67-1.5 1.5-1.5H16c2.76 0 5-2.24 5-5 0-4.42-4.03-8-9-8m-5.5 9c-.83 0-1.5-.67-1.5-1.5S5.67 9 6.5 9 8 9.67 8 10.5 7.33 12 6.5 12m3-4C8.67 8 8 7.33 8 6.5S8.67 5 9.5 5s1.5.67 1.5 1.5S10.33 8 9.5 8m5 0c-.83 0-1.5-.67-1.5-1.5S13.67 5 14.5 5s1.5.67 1.5 1.5S15.33 8 14.5 8m3 4c-.83 0-1.5-.67-1.5-1.5S16.67 9 17.5 9s1.5.67 1.5 1.5-.67 1.5-1.5 1.5"/></symbol>
+    <symbol id="i-flag" viewBox="0 0 24 24"><path d="M14.4 6 14 4H5v17h2v-7h5.6l.4 2h7V6z"/></symbol>
     <symbol id="i-upload" viewBox="0 0 24 24"><path d="M9 16h6v-6h4l-7-7-7 7h4zm-4 2h14v2H5z"/></symbol>
   </svg>
 
@@ -40,6 +44,10 @@
     <!-- Sidebar (desktop) / drawer (mobile) -->
     <aside class="sidebar" id="sidebar">
       <div class="logo"><span>IDEIA</span> FLUXO</div>
+      <div class="side-section">
+        <span class="side-label">Organizações</span>
+        <nav class="kind-nav" id="kindNav" aria-label="Organizações"></nav>
+      </div>
       <nav class="side-nav">
         <a href="#inicio" data-view="inicio"><svg><use href="#i-home"/></svg>Início</a>
         <a href="#explorar" data-view="explorar"><svg><use href="#i-search"/></svg>Explorar</a>
@@ -64,6 +72,7 @@
         <h1 id="viewTitle">MINHAS IDEIAS DE PROJETOS</h1>
         <p id="viewSubtitle">Total: 0 ideias</p>
       </header>
+      <nav class="kind-tabs" id="kindTabs" aria-label="Organizações"></nav>
 
       <main>
         <!-- INÍCIO -->
@@ -71,10 +80,10 @@
           <div class="add-wrap">
             <button class="btn-add" data-action="new"><svg><use href="#i-plus"/></svg>ADICIONAR NOVA IDEIA</button>
           </div>
-          <div class="grid" id="gridHome"></div>
+          <div id="gridHome"></div>
           <div class="empty" id="emptyHome" hidden>
             <svg><use href="#i-spark"/></svg>
-            <h2>Nenhuma ideia ainda</h2>
+            <h2>Nenhuma ideia de <span id="emptyKind">programação</span> ainda</h2>
             <p>Toque em <strong>Adicionar nova ideia</strong> para guardar a primeira.</p>
           </div>
         </section>
@@ -84,13 +93,11 @@
           <div class="panel filters">
             <label class="search">
               <svg><use href="#i-search"/></svg>
-              <input type="search" id="search" placeholder="Buscar por nome, objetivo ou composição..." />
+              <input type="search" id="search" placeholder="Buscar nas ideias desta organização..." />
             </label>
-            <div class="filter-row"><span>Tipo</span><div class="chips" data-filter="tipo"></div></div>
-            <div class="filter-row"><span>Categoria</span><div class="chips" data-filter="categoria"></div></div>
-            <div class="filter-row"><span>Status</span><div class="chips" data-filter="status"></div></div>
+            <div id="filterRows" class="filter-rows"></div>
           </div>
-          <div class="grid" id="gridExplore"></div>
+          <div id="gridExplore"></div>
           <p class="no-results" id="emptyExplore" hidden>Nenhuma ideia encontrada com esses filtros.</p>
         </section>
 
@@ -148,45 +155,23 @@
 
       <div class="modal-body">
         <input type="hidden" name="id" />
+        <input type="hidden" name="kind" />
 
-        <label class="field">
-          <span>Nome do projeto <em>(z)</em></span>
-          <input name="nome" required maxlength="120" placeholder="Ex.: PWA Planner" />
-        </label>
-
-        <label class="field">
-          <span>Função / objetivo <em>(y)</em></span>
-          <textarea name="objetivo" required maxlength="5000" rows="3" placeholder="Como ele precisa funcionar?"></textarea>
-        </label>
-
-        <label class="field">
-          <span>Composição / o que precisa ter <em>(w)</em></span>
-          <textarea name="composicao" required maxlength="5000" rows="4" placeholder="Telas, botões, seções, funcionalidades..."></textarea>
-        </label>
-
-        <div class="row">
-          <fieldset class="field">
-            <legend>Tipo</legend>
-            <div class="segmented" data-radio="tipo"></div>
-          </fieldset>
-          <fieldset class="field">
-            <legend>Linguagem <em>(x)</em></legend>
-            <div class="segmented" data-radio="linguagem"></div>
-          </fieldset>
-        </div>
+        <!-- Campos montados pelo app.js conforme a organização (KINDS) -->
+        <div id="formFields" class="form-fields"></div>
 
         <div class="row">
           <label class="field">
-            <span>Categoria</span>
-            <select name="categoria" data-select="categoria"></select>
+            <span>Prioridade</span>
+            <select name="prioridade"></select>
           </label>
           <label class="field">
             <span>Status</span>
-            <select name="status" data-select="status"></select>
+            <select name="status"></select>
           </label>
         </div>
 
-        <p class="form-error" id="formError" hidden>Preencha nome, objetivo e composição.</p>
+        <p class="form-error" id="formError" hidden></p>
       </div>
 
       <footer class="modal-foot">
@@ -201,23 +186,14 @@
     <div>
       <header class="modal-head view-head">
         <div>
-          <div class="tags">
-            <span class="badge" id="vCategoria"></span>
-            <span class="status" id="vStatus"></span>
-          </div>
+          <div class="tags" id="vTags"></div>
           <h2 id="vNome"></h2>
         </div>
         <button type="button" class="icon-btn light" data-close aria-label="Fechar"><svg><use href="#i-close"/></svg></button>
       </header>
 
       <div class="modal-body">
-        <div class="detail"><h3>Função / objetivo</h3><p id="vObjetivo"></p></div>
-        <div class="detail"><h3>Composição</h3><p id="vComposicao"></p></div>
-        <div class="detail inline">
-          <div><h3>Tipo</h3><p id="vTipo"></p></div>
-          <div><h3>Linguagem</h3><p id="vLinguagem"></p></div>
-          <div><h3>Criada em</h3><p id="vData"></p></div>
-        </div>
+        <div id="vDetails" class="details"></div>
 
         <div class="prompt-box" id="promptBox" hidden>
           <div class="prompt-head">

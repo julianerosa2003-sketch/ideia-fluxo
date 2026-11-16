@@ -1,6 +1,13 @@
 # Ideia Fluxo (PWA)
 
-PWA para guardar ideias de projetos em cards e gerar um prompt pronto a partir delas.
+PWA para guardar ideias em cards e gerar um prompt pronto a partir delas, em três organizações:
+
+- **Programação** — nome, objetivo, composição, tipo (App/Site/PWA), linguagem
+- **Livros** — título, gênero (poema, narração 1ª/3ª pessoa), sinopse, nº de capítulos
+- **Estampas** — gênero, objeto(s), descrição, variações de cor de fundo
+
+Todas têm **prioridade** (Alta/Média/Baixa) e **status**, e os cards são agrupados por data.
+As organizações são definidas em `KINDS` (`docs/app.js`); os campos aceitos pelo banco ficam em `firestore.rules`.
 
 ## Rodar
 
@@ -23,10 +30,10 @@ Endereço: **https://ideia-fluxo.firebaseapp.com** (mesmo domínio do login → 
 ```bash
 npm install -g firebase-tools   # uma vez
 firebase login                  # uma vez
-firebase deploy --only hosting  # a cada atualização
+firebase deploy                 # a cada atualização (site + regras do Firestore)
 ```
 
-`firebase.json` publica a pasta `docs`. Ao alterar arquivos, suba `CACHE` em `docs/sw.js`.
+`firebase.json` publica a pasta `docs` e as regras de `firestore.rules`. Ao alterar arquivos, suba `CACHE` em `docs/sw.js`.
 
 ## Publicar no GitHub Pages (alternativa)
 
@@ -59,7 +66,7 @@ docs/
 ### Firebase
 
 - Config pública em `docs/firebase-config.js` (não é segredo).
-- Segurança em `firestore.rules`: cole no Console → Firestore → Regras → Publicar.
+- Segurança em `firestore.rules` (validação por organização), publicada pelo `firebase deploy`.
 - SDK servido localmente em `docs/vendor/firebase` (v13.2.0, sem CDN). Para atualizar:
   `npm i firebase@X` em pasta temporária, copie `firebase-{app,auth,firestore}.js` e troque o
   import `https://www.gstatic.com/firebasejs/X/firebase-app.js` por `./firebase-app.js`.
